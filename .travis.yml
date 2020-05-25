@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - 13
+cache:
+  directories:
+    - node_modules
+env:
+  - NPM_CONFIG_LOGLEVEL=error
+  - NODE_MODULES_CACHE=true
+  - NODE_ENV=production
+  - NODE_VERBOSE=false
+before_install:
+  - echo Installing yarn...
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.22.4
+  - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn add webpack-cli -g
+  - echo Installing npm modules...
+  - yarn
+script:
+  - echo Build started on `date`
+  - echo Building the client side app...
+  - yarn run build
+  - echo Building the server side app...
+  - yarn run build-server-prod
